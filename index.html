@@ -1,177 +1,282 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Capacete AW — Solicitação de Capacetes Personalizados</title>
+    <title>CapaceteAW — Solicitação de Capacetes Personalizados</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
         body { font-family: 'Inter', system-ui, sans-serif; }
+        .nome-input:focus { outline: none; ring: 2px solid #3b82f6; }
     </style>
 </head>
 <body class="bg-gray-50 min-h-screen">
     <div class="max-w-4xl mx-auto px-4 py-8">
+
         <!-- Header -->
         <div class="flex items-center justify-between mb-10">
-            <div class="flex items-center gap-3">
-                <div class="w-12 h-12 bg-blue-600 rounded-2xl flex items-center justify-center text-white text-3xl font-bold">🪖</div>
-                <div>
-                    <h1 class="text-4xl font-bold text-gray-900">Capasseteaw</h1>
-                    <p class="text-gray-600 text-sm">Personalização de Capacetes - ATV Honrade</p>
-                </div>
+            <div>
+                <h1 class="text-4xl font-bold text-gray-900">CapaceteAW</h1>
+                <p class="text-gray-500 text-sm mt-1">Personalização de Capacetes · Athié Wohnrath</p>
             </div>
-            <a href="/login" 
-               class="px-6 py-3 bg-white border border-gray-300 rounded-2xl font-medium hover:bg-gray-50 transition-colors flex items-center gap-2">
-                <i class="fas fa-chart-bar"></i> Dashboard
+            <a href="/login"
+               class="px-5 py-2.5 bg-white border border-gray-300 rounded-xl font-medium text-sm hover:bg-gray-50 transition-colors">
+                Acessar painel
             </a>
         </div>
 
         <div class="bg-white rounded-3xl shadow-xl p-8 md:p-12">
-            <h2 class="text-3xl font-semibold text-gray-800 mb-2">Nova Solicitação</h2>
-            <p class="text-gray-600 mb-8">Preencha os dados para iniciar o processo de personalização.</p>
+            <h2 class="text-2xl font-semibold text-gray-800 mb-1">Nova Solicitação</h2>
+            <p class="text-gray-500 text-sm mb-8">Preencha os dados para iniciar o processo de personalização.</p>
 
-            <form id="solicitacaoForm" class="space-y-8">
+            <form id="solicitacaoForm" class="space-y-10">
+
                 <!-- Dados do Solicitante -->
                 <div>
-                    <h3 class="text-xl font-semibold text-gray-800 mb-4 flex items-center gap-2">
-                        <i class="fas fa-user"></i> Dados do Solicitante
-                    </h3>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <h3 class="text-base font-semibold text-gray-700 mb-4 pb-2 border-b border-gray-100">Dados do Solicitante</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Nome Completo</label>
+                            <label class="block text-sm font-medium text-gray-600 mb-1.5">Nome completo</label>
                             <input type="text" id="nome" name="nome" required
-                                   class="w-full px-5 py-4 border border-gray-300 rounded-2xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none text-lg">
+                                   class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none">
                         </div>
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">E-mail</label>
+                            <label class="block text-sm font-medium text-gray-600 mb-1.5">E-mail</label>
                             <input type="email" id="email" name="email" required
-                                   class="w-full px-5 py-4 border border-gray-300 rounded-2xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none text-lg">
+                                   class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none">
                         </div>
                     </div>
                 </div>
 
                 <!-- Dados do Cliente -->
                 <div>
-                    <h3 class="text-xl font-semibold text-gray-800 mb-4 flex items-center gap-2">
-                        <i class="fas fa-building"></i> Dados do Cliente
-                    </h3>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <h3 class="text-base font-semibold text-gray-700 mb-4 pb-2 border-b border-gray-100">Dados do Cliente</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Nome do Cliente</label>
+                            <label class="block text-sm font-medium text-gray-600 mb-1.5">Nome do cliente</label>
                             <input type="text" id="cliente" name="cliente" required
-                                   class="w-full px-5 py-4 border border-gray-300 rounded-2xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none text-lg">
+                                   class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none">
                         </div>
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Site do Cliente</label>
-                            <input type="url" id="site_cliente" name="site_cliente"
-                                   class="w-full px-5 py-4 border border-gray-300 rounded-2xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none text-lg">
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Dados do Parceiro -->
-                <div>
-                    <h3 class="text-xl font-semibold text-gray-800 mb-4 flex items-center gap-2">
-                        <i class="fas fa-handshake"></i> Dados do Parceiro
-                    </h3>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Nome do Parceiro/Gerenciadora</label>
-                            <input type="text" id="parceiro" name="parceiro"
-                                   class="w-full px-5 py-4 border border-gray-300 rounded-2xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none text-lg">
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Site do Parceiro</label>
-                            <input type="url" id="site_parceiro" name="site_parceiro"
-                                   class="w-full px-5 py-4 border border-gray-300 rounded-2xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none text-lg">
+                            <label class="block text-sm font-medium text-gray-600 mb-1.5">Site do cliente</label>
+                            <input type="text" id="site_cliente" name="site_cliente" placeholder="https://..."
+                                   class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none">
                         </div>
                     </div>
                 </div>
 
                 <!-- Dados do Pedido -->
                 <div>
-                    <h3 class="text-xl font-semibold text-gray-800 mb-4 flex items-center gap-2">
-                        <i class="fas fa-clipboard-list"></i> Dados do Pedido
-                    </h3>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Quantidade de Capacetes</label>
-                            <input type="number" id="quantidade" name="quantidade" min="1" required
-                                   class="w-full px-5 py-4 border border-gray-300 rounded-2xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none text-lg">
+                    <h3 class="text-base font-semibold text-gray-700 mb-4 pb-2 border-b border-gray-100">Dados do Pedido</h3>
+                    <div class="space-y-5">
+
+                        <!-- Quantidade -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-600 mb-1.5">Quantidade de capacetes <span class="text-red-500">*</span></label>
+                                <input type="number" id="quantidade" name="quantidade" min="1" required
+                                       class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+                                       oninput="atualizarNomes()">
+                            </div>
+                            <div class="flex items-end pb-1">
+                                <div id="contador-wrap" class="hidden w-full">
+                                    <div class="flex items-center justify-between bg-gray-50 rounded-xl px-4 py-3 border border-gray-200">
+                                        <span class="text-sm text-gray-500">Nomes preenchidos</span>
+                                        <span id="contador-texto" class="text-sm font-semibold text-red-500">0 / 0</span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Projeto/Obra</label>
-                            <input type="text" id="projeto" name="projeto" required
-                                   class="w-full px-5 py-4 border border-gray-300 rounded-2xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none text-lg">
+
+                        <!-- Lista de nomes -->
+                        <div id="nomes-secao" class="hidden">
+                            <label class="block text-sm font-medium text-gray-600 mb-3">
+                                Nomes para os adesivos <span class="text-red-500">*</span>
+                                <span class="text-gray-400 font-normal ml-1">— um nome por capacete, na ordem de preferência</span>
+                            </label>
+                            <div id="nomes-lista" class="space-y-2"></div>
+                            <p id="nomes-aviso" class="hidden mt-2 text-xs text-red-500">A quantidade de nomes deve ser igual ao número de capacetes solicitados.</p>
                         </div>
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Cidade</label>
-                            <input type="text" id="cidade" name="cidade" required
-                                   class="w-full px-5 py-4 border border-gray-300 rounded-2xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none text-lg">
+
+                        <!-- Projeto -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-600 mb-1.5">Número do projeto</label>
+                                <input type="text" id="numero_projeto" name="numero_projeto"
+                                       placeholder="ex: AW-2024-001"
+                                       class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-600 mb-1.5">Nome do projeto / obra <span class="text-red-500">*</span></label>
+                                <input type="text" id="nome_projeto" name="nome_projeto" required
+                                       placeholder="ex: Sede Corporativa XPTO"
+                                       class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none">
+                            </div>
                         </div>
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Estado</label>
-                            <input type="text" id="estado" name="estado" maxlength="2" required
-                                   class="w-full px-5 py-4 border border-gray-300 rounded-2xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none text-lg">
+
+                        <!-- Local -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-600 mb-1.5">Cidade <span class="text-red-500">*</span></label>
+                                <input type="text" id="cidade" name="cidade" required
+                                       class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-600 mb-1.5">Estado (UF) <span class="text-red-500">*</span></label>
+                                <input type="text" id="estado" name="estado" maxlength="2" required
+                                       placeholder="SP"
+                                       class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none">
+                            </div>
                         </div>
+
                     </div>
                 </div>
 
-                <!-- Observações -->
+                <!-- Observações para o time de criação -->
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Observações</label>
+                    <h3 class="text-base font-semibold text-gray-700 mb-1 pb-2 border-b border-gray-100">Observações importantes para o time de criação</h3>
+                    <p class="text-xs text-gray-400 mb-3">Informe parceiros, gerenciadoras, instruções de personalização ou qualquer detalhe relevante para a arte.</p>
                     <textarea id="observacoes" name="observacoes" rows="4"
-                              class="w-full px-5 py-4 border border-gray-300 rounded-3xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none text-lg resize-y"></textarea>
+                              class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none resize-y text-sm"
+                              placeholder="Ex: logotipo do parceiro XYZ deve aparecer junto ao logo do cliente…"></textarea>
                 </div>
 
-                <button type="submit"
-                        class="w-full bg-blue-600 hover:bg-blue-700 transition-all text-white font-semibold text-xl py-6 rounded-3xl flex items-center justify-center gap-3 shadow-lg shadow-blue-500/30">
-                    <i class="fas fa-paper-plane"></i>
-                    ENVIAR SOLICITAÇÃO
+                <!-- Botão -->
+                <button type="submit" id="btnSubmit"
+                        class="w-full bg-gray-900 hover:bg-gray-700 transition-all text-white font-semibold text-base py-4 rounded-2xl">
+                    Enviar solicitação
                 </button>
+
+                <div id="erroNomes" class="hidden text-center text-sm text-red-500 -mt-4">
+                    Preencha todos os nomes antes de enviar.
+                </div>
             </form>
         </div>
 
-        <div class="text-center mt-8 text-sm text-gray-500">
-            Capacete AW · Athié Wohnrath · Uso interno
+        <div class="text-center mt-8 text-xs text-gray-400">
+            CapaceteAW · Athié Wohnrath · Uso interno
         </div>
     </div>
 
     <script>
+        // ── Lista de nomes dinâmica ──
+        function atualizarNomes() {
+            const n = parseInt(document.getElementById('quantidade').value) || 0;
+            const secao  = document.getElementById('nomes-secao');
+            const cWrap  = document.getElementById('contador-wrap');
+            const lista  = document.getElementById('nomes-lista');
+
+            if (n < 1) {
+                secao.classList.add('hidden');
+                cWrap.classList.add('hidden');
+                return;
+            }
+            secao.classList.remove('hidden');
+            cWrap.classList.remove('hidden');
+
+            const atual = lista.querySelectorAll('input').length;
+            if (n > atual) {
+                for (let i = atual; i < n; i++) {
+                    const row = document.createElement('div');
+                    row.className = 'flex items-center gap-3';
+                    row.innerHTML = `
+                        <span class="text-xs text-gray-400 w-6 text-right flex-shrink-0">${i + 1}.</span>
+                        <input type="text"
+                               class="nome-input flex-1 px-4 py-2.5 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none text-sm"
+                               placeholder="Nome completo"
+                               oninput="contarNomes()">`;
+                    lista.appendChild(row);
+                }
+            } else if (n < atual) {
+                while (lista.querySelectorAll('input').length > n) {
+                    lista.lastChild.remove();
+                }
+            }
+            contarNomes();
+        }
+
+        function contarNomes() {
+            const n = parseInt(document.getElementById('quantidade').value) || 0;
+            const inputs = [...document.querySelectorAll('#nomes-lista input')];
+            const preenchidos = inputs.filter(i => i.value.trim()).length;
+            const texto = document.getElementById('contador-texto');
+            texto.textContent = `${preenchidos} / ${n}`;
+            texto.className = preenchidos === n && n > 0
+                ? 'text-sm font-semibold text-green-600'
+                : 'text-sm font-semibold text-red-500';
+        }
+
+        function getNomes() {
+            return [...document.querySelectorAll('#nomes-lista input')]
+                .map((el, i) => `${i + 1}. ${el.value.trim()}`)
+                .filter(s => s.length > 3)
+                .join('\n');
+        }
+
+        // ── Envio do formulário ──
         document.getElementById('solicitacaoForm').addEventListener('submit', async (e) => {
             e.preventDefault();
-            
+
+            const qtd = parseInt(document.getElementById('quantidade').value) || 0;
+            const nomes = [...document.querySelectorAll('#nomes-lista input')];
+            const todoPreenchido = nomes.length === qtd && nomes.every(i => i.value.trim());
+
+            if (qtd > 0 && !todoPreenchido) {
+                document.getElementById('erroNomes').classList.remove('hidden');
+                document.getElementById('nomes-secao').scrollIntoView({ behavior: 'smooth', block: 'center' });
+                return;
+            }
+            document.getElementById('erroNomes').classList.add('hidden');
+
+            const numProjeto  = document.getElementById('numero_projeto').value.trim();
+            const nomeProjeto = document.getElementById('nome_projeto').value.trim();
+            const projetoFinal = numProjeto ? `${numProjeto} — ${nomeProjeto}` : nomeProjeto;
+
+            const obsBase  = document.getElementById('observacoes').value.trim();
+            const listaNomes = getNomes();
+            const obsFinal = listaNomes
+                ? `[Nomes dos adesivos]\n${listaNomes}${obsBase ? '\n\n' + obsBase : ''}`
+                : obsBase;
+
+            const btn = document.getElementById('btnSubmit');
+            btn.disabled = true;
+            btn.textContent = 'Enviando…';
+
             const formData = new FormData();
-            formData.append('nome', document.getElementById('nome').value);
-            formData.append('email', document.getElementById('email').value);
-            formData.append('cliente', document.getElementById('cliente').value);
-            formData.append('site_cliente', document.getElementById('site_cliente').value);
-            formData.append('parceiro', document.getElementById('parceiro').value);
-            formData.append('site_parceiro', document.getElementById('site_parceiro').value);
-            formData.append('quantidade', document.getElementById('quantidade').value);
-            formData.append('projeto', document.getElementById('projeto').value);
-            formData.append('cidade', document.getElementById('cidade').value);
-            formData.append('estado', document.getElementById('estado').value);
-            formData.append('observacoes', document.getElementById('observacoes').value);
+            formData.append('nome',        document.getElementById('nome').value);
+            formData.append('email',       document.getElementById('email').value);
+            formData.append('cliente',     document.getElementById('cliente').value);
+            formData.append('quantidade',  qtd);
+            formData.append('projeto',     projetoFinal);
+            formData.append('cidade',      document.getElementById('cidade').value);
+            formData.append('estado',      document.getElementById('estado').value);
+            formData.append('observacoes', obsFinal);
 
             try {
-                const response = await fetch('/solicitacoes/', {
-                    method: 'POST',
-                    body: formData
-                });
-                
+                const response = await fetch('/solicitacoes/', { method: 'POST', body: formData });
                 const data = await response.json();
-                
                 if (response.ok) {
-                    alert(`✅ Solicitação enviada com sucesso!\n\nProtocolo: ${data.protocolo}\n\nO retorno será realizado em até 48 horas.`);
-                    e.target.reset();
+                    document.querySelector('.bg-white').innerHTML = `
+                        <div class="text-center py-16">
+                            <div class="text-5xl mb-6">✅</div>
+                            <h2 class="text-2xl font-semibold text-gray-800 mb-2">Solicitação enviada!</h2>
+                            <p class="text-gray-500 mb-2">Seu protocolo é:</p>
+                            <p class="text-3xl font-bold text-gray-900 mb-6">${data.protocolo}</p>
+                            <p class="text-sm text-gray-400 mb-8">O retorno será realizado em até 48 horas.</p>
+                            <a href="/" class="px-6 py-3 bg-gray-900 text-white rounded-xl text-sm font-medium hover:bg-gray-700 transition-colors">
+                                Nova solicitação
+                            </a>
+                        </div>`;
                 } else {
                     alert('Erro: ' + (data.detail || 'Falha ao enviar solicitação'));
+                    btn.disabled = false;
+                    btn.textContent = 'Enviar solicitação';
                 }
-            } catch (error) {
+            } catch {
                 alert('Erro de conexão. Tente novamente.');
+                btn.disabled = false;
+                btn.textContent = 'Enviar solicitação';
             }
         });
     </script>
