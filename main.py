@@ -202,7 +202,10 @@ async def teste_notificacao(email: str, evento: str, protocolo: str):
 
 # ==================== DASHBOARD EXECUTIVO ====================
 from fastapi.templating import Jinja2Templates
-templates = Jinja2Templates(directory=os.path.join(BASE_DIR, "templates"))
+_tmpl_dir = os.path.join(BASE_DIR, "templates")
+if not os.path.isdir(_tmpl_dir):
+    _tmpl_dir = BASE_DIR
+templates = Jinja2Templates(directory=_tmpl_dir)
 
 
 @app.get("/login", response_class=HTMLResponse)
