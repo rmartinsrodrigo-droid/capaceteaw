@@ -1,382 +1,179 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Capacete AW — Acesso</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      --black:   #0C0C0C;
-      --white:   #FFFFFF;
-      --amber:   #C09A6B;
-      --gray-2:  #6B6B6B;
-      --gray-3:  #D4D0CA;
-      --gray-bg: #F2F0EC;
-      --err:     #B04040;
-    }
-
-    body {
-      font-family: 'Inter', system-ui, sans-serif;
-      background: var(--black);
-      min-height: 100dvh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 24px;
-    }
-
-    /* ── Card ── */
-    .card {
-      background: var(--white);
-      width: 100%;
-      max-width: 420px;
-      border-radius: 2px;
-      overflow: hidden;
-      box-shadow: 0 32px 80px rgba(0,0,0,.6);
-    }
-
-    /* Assinatura: faixa âmbar no topo */
-    .card-accent {
-      height: 3px;
-      background: var(--amber);
-      width: 100%;
-    }
-
-    .card-body {
-      padding: 48px 44px 52px;
-    }
-
-    /* ── Identidade ── */
-    .brand-name {
-      font-family: 'Cormorant Garamond', Georgia, serif;
-      font-size: 26px;
-      font-weight: 600;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-      color: var(--black);
-      line-height: 1;
-    }
-    .brand-sub {
-      font-size: 11px;
-      color: var(--gray-2);
-      letter-spacing: .06em;
-      margin-top: 5px;
-      text-transform: uppercase;
-    }
-
-    .divider {
-      height: 1px;
-      background: var(--gray-3);
-      margin: 32px 0;
-    }
-
-    /* ── Títulos de etapa ── */
-    .step-title {
-      font-size: 18px;
-      font-weight: 600;
-      color: var(--black);
-      margin-bottom: 6px;
-    }
-    .step-sub {
-      font-size: 13px;
-      color: var(--gray-2);
-      line-height: 1.5;
-      margin-bottom: 28px;
-    }
-    .step-sub strong { color: var(--black); font-weight: 500; }
-
-    /* ── Inputs estilo linha (só borda inferior) ── */
-    .field { margin-bottom: 24px; }
-    .field label {
-      display: block;
-      font-size: 11px;
-      letter-spacing: .08em;
-      text-transform: uppercase;
-      color: var(--gray-2);
-      margin-bottom: 10px;
-    }
-    .field input {
-      width: 100%;
-      border: none;
-      border-bottom: 1.5px solid var(--gray-3);
-      border-radius: 0;
-      padding: 10px 0;
-      font-size: 16px;
-      font-family: 'Inter', sans-serif;
-      color: var(--black);
-      background: transparent;
-      outline: none;
-      transition: border-color .2s;
-    }
-    .field input:focus { border-bottom-color: var(--amber); }
-    .field input::placeholder { color: var(--gray-3); }
-
-    /* ── OTP: 6 caixas só-linha ── */
-    .otp-boxes {
-      display: flex;
-      gap: 12px;
-      margin-bottom: 32px;
-      justify-content: center;
-    }
-    .otp-box {
-      width: 44px;
-      height: 56px;
-      border: none;
-      border-bottom: 2px solid var(--gray-3);
-      border-radius: 0;
-      text-align: center;
-      font-size: 24px;
-      font-weight: 600;
-      font-family: 'Inter', sans-serif;
-      color: var(--black);
-      background: transparent;
-      outline: none;
-      transition: border-color .2s;
-      caret-color: var(--amber);
-    }
-    .otp-box:focus { border-bottom-color: var(--amber); }
-
-    /* ── Botão principal ── */
-    .btn-primary {
-      width: 100%;
-      padding: 16px;
-      background: var(--black);
-      color: var(--white);
-      border: none;
-      border-radius: 2px;
-      font-family: 'Inter', sans-serif;
-      font-size: 13px;
-      font-weight: 600;
-      letter-spacing: .1em;
-      text-transform: uppercase;
-      cursor: pointer;
-      transition: background .2s, opacity .2s;
-      position: relative;
-    }
-    .btn-primary:hover { background: #2a2a2a; }
-    .btn-primary:disabled { opacity: .5; cursor: not-allowed; }
-
-    /* spinner inline */
-    .spinner {
-      display: none;
-      width: 16px; height: 16px;
-      border: 2px solid rgba(255,255,255,.3);
-      border-top-color: #fff;
-      border-radius: 50%;
-      animation: spin .7s linear infinite;
-      margin: 0 auto;
-    }
-    @keyframes spin { to { transform: rotate(360deg); } }
-
-    /* ── Link secundário ── */
-    .link-sec {
-      display: block;
-      text-align: center;
-      margin-top: 20px;
-      font-size: 12px;
-      color: var(--gray-2);
-      text-decoration: none;
-      cursor: pointer;
-      transition: color .2s;
-    }
-    .link-sec:hover { color: var(--black); }
-
-    /* ── Erro ── */
-    .error-msg {
-      font-size: 12px;
-      color: var(--err);
-      margin-top: 12px;
-      min-height: 16px;
-      text-align: center;
-    }
-
-    /* ── Etapas ── */
-    .step { display: none; }
-    .step.active { display: block; }
-
-    /* ── Rodapé externo ── */
-    .page-footer {
-      margin-top: 32px;
-      font-size: 11px;
-      color: #444;
-      letter-spacing: .05em;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Capacete AW — Solicitação de Capacetes Personalizados</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        body { font-family: 'Inter', system-ui, sans-serif; }
+    </style>
 </head>
-<body>
-
-  <div class="card">
-    <div class="card-accent"></div>
-    <div class="card-body">
-
-      <!-- Identidade -->
-      <div class="brand-name">Capacete AW</div>
-      <div class="brand-sub">Athié Wohnrath</div>
-
-      <div class="divider"></div>
-
-      <!-- Etapa 1: e-mail -->
-      <div class="step active" id="step1">
-        <div class="step-title">Acesse sua conta</div>
-        <div class="step-sub">Enviaremos um código de verificação para o seu e-mail corporativo.</div>
-
-        <div class="field">
-          <label for="emailInput">E-mail</label>
-          <input type="email" id="emailInput" placeholder="voce@athiewohnrath.com.br" autocomplete="email">
+<body class="bg-gray-50 min-h-screen">
+    <div class="max-w-4xl mx-auto px-4 py-8">
+        <!-- Header -->
+        <div class="flex items-center justify-between mb-10">
+            <div class="flex items-center gap-3">
+                <div class="w-12 h-12 bg-blue-600 rounded-2xl flex items-center justify-center text-white text-3xl font-bold">🪖</div>
+                <div>
+                    <h1 class="text-4xl font-bold text-gray-900">Capasseteaw</h1>
+                    <p class="text-gray-600 text-sm">Personalização de Capacetes - ATV Honrade</p>
+                </div>
+            </div>
+            <a href="/login" 
+               class="px-6 py-3 bg-white border border-gray-300 rounded-2xl font-medium hover:bg-gray-50 transition-colors flex items-center gap-2">
+                <i class="fas fa-chart-bar"></i> Dashboard
+            </a>
         </div>
 
-        <button class="btn-primary" id="btnEnviar" onclick="enviarCodigo()">
-          <span id="btnEnviarText">Enviar código</span>
-          <div class="spinner" id="spinEnviar"></div>
-        </button>
-        <div class="error-msg" id="err1"></div>
-      </div>
+        <div class="bg-white rounded-3xl shadow-xl p-8 md:p-12">
+            <h2 class="text-3xl font-semibold text-gray-800 mb-2">Nova Solicitação</h2>
+            <p class="text-gray-600 mb-8">Preencha os dados para iniciar o processo de personalização.</p>
 
-      <!-- Etapa 2: OTP -->
-      <div class="step" id="step2">
-        <div class="step-title">Verifique seu e-mail</div>
-        <div class="step-sub" id="sub2">Código enviado para <strong id="emailLabel"></strong>. Válido por 10 minutos.</div>
+            <form id="solicitacaoForm" class="space-y-8">
+                <!-- Dados do Solicitante -->
+                <div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-4 flex items-center gap-2">
+                        <i class="fas fa-user"></i> Dados do Solicitante
+                    </h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Nome Completo</label>
+                            <input type="text" id="nome" name="nome" required
+                                   class="w-full px-5 py-4 border border-gray-300 rounded-2xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none text-lg">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">E-mail</label>
+                            <input type="email" id="email" name="email" required
+                                   class="w-full px-5 py-4 border border-gray-300 rounded-2xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none text-lg">
+                        </div>
+                    </div>
+                </div>
 
-        <div class="otp-boxes">
-          <input class="otp-box" type="text" inputmode="numeric" maxlength="1" id="d0">
-          <input class="otp-box" type="text" inputmode="numeric" maxlength="1" id="d1">
-          <input class="otp-box" type="text" inputmode="numeric" maxlength="1" id="d2">
-          <input class="otp-box" type="text" inputmode="numeric" maxlength="1" id="d3">
-          <input class="otp-box" type="text" inputmode="numeric" maxlength="1" id="d4">
-          <input class="otp-box" type="text" inputmode="numeric" maxlength="1" id="d5">
+                <!-- Dados do Cliente -->
+                <div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-4 flex items-center gap-2">
+                        <i class="fas fa-building"></i> Dados do Cliente
+                    </h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Nome do Cliente</label>
+                            <input type="text" id="cliente" name="cliente" required
+                                   class="w-full px-5 py-4 border border-gray-300 rounded-2xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none text-lg">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Site do Cliente</label>
+                            <input type="url" id="site_cliente" name="site_cliente"
+                                   class="w-full px-5 py-4 border border-gray-300 rounded-2xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none text-lg">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Dados do Parceiro -->
+                <div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-4 flex items-center gap-2">
+                        <i class="fas fa-handshake"></i> Dados do Parceiro
+                    </h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Nome do Parceiro/Gerenciadora</label>
+                            <input type="text" id="parceiro" name="parceiro"
+                                   class="w-full px-5 py-4 border border-gray-300 rounded-2xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none text-lg">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Site do Parceiro</label>
+                            <input type="url" id="site_parceiro" name="site_parceiro"
+                                   class="w-full px-5 py-4 border border-gray-300 rounded-2xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none text-lg">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Dados do Pedido -->
+                <div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-4 flex items-center gap-2">
+                        <i class="fas fa-clipboard-list"></i> Dados do Pedido
+                    </h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Quantidade de Capacetes</label>
+                            <input type="number" id="quantidade" name="quantidade" min="1" required
+                                   class="w-full px-5 py-4 border border-gray-300 rounded-2xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none text-lg">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Projeto/Obra</label>
+                            <input type="text" id="projeto" name="projeto" required
+                                   class="w-full px-5 py-4 border border-gray-300 rounded-2xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none text-lg">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Cidade</label>
+                            <input type="text" id="cidade" name="cidade" required
+                                   class="w-full px-5 py-4 border border-gray-300 rounded-2xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none text-lg">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Estado</label>
+                            <input type="text" id="estado" name="estado" maxlength="2" required
+                                   class="w-full px-5 py-4 border border-gray-300 rounded-2xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none text-lg">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Observações -->
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Observações</label>
+                    <textarea id="observacoes" name="observacoes" rows="4"
+                              class="w-full px-5 py-4 border border-gray-300 rounded-3xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none text-lg resize-y"></textarea>
+                </div>
+
+                <button type="submit"
+                        class="w-full bg-blue-600 hover:bg-blue-700 transition-all text-white font-semibold text-xl py-6 rounded-3xl flex items-center justify-center gap-3 shadow-lg shadow-blue-500/30">
+                    <i class="fas fa-paper-plane"></i>
+                    ENVIAR SOLICITAÇÃO
+                </button>
+            </form>
         </div>
 
-        <button class="btn-primary" id="btnEntrar" onclick="verificarCodigo()">
-          <span id="btnEntrarText">Entrar</span>
-          <div class="spinner" id="spinEntrar"></div>
-        </button>
-
-        <a class="link-sec" id="linkReenviar" onclick="reenviar()">Reenviar código</a>
-        <div class="error-msg" id="err2"></div>
-      </div>
-
+        <div class="text-center mt-8 text-sm text-gray-500">
+            Capacete AW · Athié Wohnrath · Uso interno
+        </div>
     </div>
-  </div>
 
-  <div class="page-footer">© Athié Wohnrath &nbsp;·&nbsp; Uso interno</div>
+    <script>
+        document.getElementById('solicitacaoForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const formData = new FormData();
+            formData.append('nome', document.getElementById('nome').value);
+            formData.append('email', document.getElementById('email').value);
+            formData.append('cliente', document.getElementById('cliente').value);
+            formData.append('site_cliente', document.getElementById('site_cliente').value);
+            formData.append('parceiro', document.getElementById('parceiro').value);
+            formData.append('site_parceiro', document.getElementById('site_parceiro').value);
+            formData.append('quantidade', document.getElementById('quantidade').value);
+            formData.append('projeto', document.getElementById('projeto').value);
+            formData.append('cidade', document.getElementById('cidade').value);
+            formData.append('estado', document.getElementById('estado').value);
+            formData.append('observacoes', document.getElementById('observacoes').value);
 
-<script>
-  // ── Navegação de etapas ──
-  function showStep(n) {
-    document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
-    document.getElementById('step' + n).classList.add('active');
-  }
-
-  function setLoading(btn, spin, text, on) {
-    document.getElementById(btn).disabled = on;
-    document.getElementById(spin).style.display = on ? 'block' : 'none';
-    document.getElementById(text).style.display = on ? 'none' : 'inline';
-  }
-
-  function setErr(id, msg) { document.getElementById(id).textContent = msg; }
-
-  // ── Etapa 1: enviar código ──
-  async function enviarCodigo() {
-    const email = document.getElementById('emailInput').value.trim();
-    if (!email) { setErr('err1', 'Informe o e-mail.'); return; }
-    setErr('err1', '');
-    setLoading('btnEnviar', 'spinEnviar', 'btnEnviarText', true);
-
-    try {
-      const fd = new FormData();
-      fd.append('email', email);
-      const r = await fetch('/auth/solicitar_otp', { method: 'POST', body: fd });
-      const data = await r.json();
-      if (!r.ok) { setErr('err1', data.detail || 'Erro ao enviar código.'); return; }
-
-      document.getElementById('emailLabel').textContent = email;
-      localStorage.setItem('aw_email_login', email);
-      showStep(2);
-      setTimeout(() => document.getElementById('d0').focus(), 50);
-    } catch { setErr('err1', 'Erro de conexão. Tente novamente.'); }
-    finally { setLoading('btnEnviar', 'spinEnviar', 'btnEnviarText', false); }
-  }
-
-  // ── Etapa 2: verificar OTP ──
-  async function verificarCodigo() {
-    const otp = [0,1,2,3,4,5].map(i => document.getElementById('d'+i).value).join('');
-    if (otp.length < 6) { setErr('err2', 'Digite os 6 dígitos do código.'); return; }
-    setErr('err2', '');
-    setLoading('btnEntrar', 'spinEntrar', 'btnEntrarText', true);
-
-    try {
-      const email = localStorage.getItem('aw_email_login') || '';
-      const fd = new FormData();
-      fd.append('email', email);
-      fd.append('otp', otp);
-      const r = await fetch('/auth/verificar_otp', { method: 'POST', body: fd });
-      const data = await r.json();
-      if (!r.ok) {
-        setErr('err2', data.detail || 'Código inválido.');
-        document.querySelectorAll('.otp-box').forEach(b => b.value = '');
-        document.getElementById('d0').focus();
-        return;
-      }
-      localStorage.setItem('aw_token', data.token);
-      localStorage.setItem('aw_perfil', data.perfil);
-      localStorage.setItem('aw_nome',   data.nome);
-      localStorage.setItem('aw_email',  data.email);
-      window.location.href = '/dashboard';
-    } catch { setErr('err2', 'Erro de conexão. Tente novamente.'); }
-    finally { setLoading('btnEntrar', 'spinEntrar', 'btnEntrarText', false); }
-  }
-
-  // ── Reenviar ──
-  async function reenviar() {
-    const email = localStorage.getItem('aw_email_login') || '';
-    if (!email) { showStep(1); return; }
-    document.getElementById('linkReenviar').textContent = 'Enviando…';
-    const fd = new FormData(); fd.append('email', email);
-    try { await fetch('/auth/solicitar_otp', { method: 'POST', body: fd }); } catch {}
-    document.getElementById('linkReenviar').textContent = 'Código reenviado ✓';
-    document.querySelectorAll('.otp-box').forEach(b => b.value = '');
-    document.getElementById('d0').focus();
-    setTimeout(() => { document.getElementById('linkReenviar').textContent = 'Reenviar código'; }, 3000);
-  }
-
-  // ── Navegação entre as caixas do OTP ──
-  document.querySelectorAll('.otp-box').forEach((box, i, all) => {
-    box.addEventListener('input', e => {
-      const val = e.target.value.replace(/\D/g, '');
-      e.target.value = val.slice(-1);
-      if (val && i < 5) all[i + 1].focus();
-      if ([...all].every(b => b.value)) verificarCodigo();
-    });
-    box.addEventListener('keydown', e => {
-      if (e.key === 'Backspace' && !box.value && i > 0) all[i - 1].focus();
-    });
-  });
-
-  // ── Paste no primeiro box ──
-  document.getElementById('d0').addEventListener('paste', e => {
-    e.preventDefault();
-    const digits = (e.clipboardData.getData('text').replace(/\D/g,'')).slice(0,6);
-    digits.split('').forEach((d, i) => {
-      const box = document.getElementById('d'+i);
-      if (box) box.value = d;
-    });
-    const last = document.getElementById('d' + Math.min(digits.length, 5));
-    if (last) last.focus();
-    if (digits.length === 6) verificarCodigo();
-  });
-
-  // Enter no campo de e-mail
-  document.getElementById('emailInput').addEventListener('keydown', e => {
-    if (e.key === 'Enter') enviarCodigo();
-  });
-
-  // Se já tem token, vai direto pro dashboard
-  if (localStorage.getItem('aw_token')) window.location.href = '/dashboard';
-</script>
+            try {
+                const response = await fetch('/solicitacoes/', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    alert(`✅ Solicitação enviada com sucesso!\n\nProtocolo: ${data.protocolo}\n\nO retorno será realizado em até 48 horas.`);
+                    e.target.reset();
+                } else {
+                    alert('Erro: ' + (data.detail || 'Falha ao enviar solicitação'));
+                }
+            } catch (error) {
+                alert('Erro de conexão. Tente novamente.');
+            }
+        });
+    </script>
 </body>
 </html>

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Capacete AW — Dashboard</title>
+  <title>Capacete AW — Acesso</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
@@ -13,378 +13,370 @@
       --black:   #0C0C0C;
       --white:   #FFFFFF;
       --amber:   #C09A6B;
-      --gray-1:  #3A3A3A;
       --gray-2:  #6B6B6B;
       --gray-3:  #D4D0CA;
       --gray-bg: #F2F0EC;
-      --green:   #3D7A5A;
-      --blue:    #2E5FA3;
-      --orange:  #C17A2B;
-      --red:     #B04040;
+      --err:     #B04040;
     }
 
-    body { font-family: 'Inter', system-ui, sans-serif; background: var(--gray-bg); color: var(--black); min-height: 100dvh; }
-
-    /* ── Navbar ── */
-    nav {
-      background: var(--white);
-      border-bottom: 1px solid var(--gray-3);
-      height: 60px;
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--black);
+      min-height: 100dvh;
       display: flex;
+      flex-direction: column;
       align-items: center;
-      padding: 0 32px;
-      justify-content: space-between;
-      position: sticky; top: 0; z-index: 10;
-    }
-    .nav-brand {
-      display: flex; align-items: center; gap: 12px;
-    }
-    .nav-accent { width: 3px; height: 24px; background: var(--amber); border-radius: 1px; }
-    .nav-name {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 18px; font-weight: 600;
-      letter-spacing: .1em; text-transform: uppercase; color: var(--black);
-    }
-    .nav-right { display: flex; align-items: center; gap: 16px; }
-    .badge-perfil {
-      font-size: 10px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase;
-      padding: 3px 9px; border: 1px solid var(--gray-3); border-radius: 2px; color: var(--gray-2);
-    }
-    .nav-user { font-size: 13px; color: var(--gray-1); font-weight: 500; }
-    .btn-logout {
-      font-size: 12px; color: var(--gray-2); background: none; border: none;
-      cursor: pointer; letter-spacing: .04em; text-decoration: underline;
-      text-underline-offset: 3px; transition: color .2s;
-    }
-    .btn-logout:hover { color: var(--black); }
-
-    /* ── Página ── */
-    .page { max-width: 1200px; margin: 0 auto; padding: 40px 32px; }
-
-    /* ── Cabeçalho da página ── */
-    .page-header { margin-bottom: 32px; }
-    .page-title { font-size: 22px; font-weight: 600; color: var(--black); }
-    .page-desc { font-size: 13px; color: var(--gray-2); margin-top: 4px; }
-
-    /* ── Ação principal ── */
-    .btn-new {
-      display: inline-flex; align-items: center; gap: 8px;
-      background: var(--black); color: var(--white);
-      border: none; border-radius: 2px;
-      padding: 11px 20px; font-family: 'Inter', sans-serif;
-      font-size: 12px; font-weight: 600; letter-spacing: .08em;
-      text-transform: uppercase; cursor: pointer; text-decoration: none;
-      transition: background .2s;
-    }
-    .btn-new:hover { background: #2a2a2a; }
-
-    /* ── Cards de resumo ── */
-    .summary { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 36px; }
-    .summary-card {
-      background: var(--white); border-radius: 2px; padding: 24px 28px;
-      border-top: 2px solid transparent; position: relative;
-    }
-    .summary-card.amber { border-top-color: var(--amber); }
-    .summary-card.green { border-top-color: var(--green); }
-    .summary-card.blue  { border-top-color: var(--blue); }
-    .summary-card.gray  { border-top-color: var(--gray-3); }
-    .summary-num { font-size: 40px; font-weight: 700; color: var(--black); line-height: 1; }
-    .summary-label { font-size: 11px; text-transform: uppercase; letter-spacing: .07em; color: var(--gray-2); margin-top: 8px; }
-
-    /* ── Filtros de status ── */
-    .filters { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 24px; align-items: center; }
-    .filter-chip {
-      font-size: 12px; font-weight: 500; padding: 6px 14px;
-      border: 1px solid var(--gray-3); border-radius: 2px;
-      background: var(--white); color: var(--gray-2); cursor: pointer;
-      transition: all .15s; white-space: nowrap;
-    }
-    .filter-chip:hover { border-color: var(--black); color: var(--black); }
-    .filter-chip.active { background: var(--black); color: var(--white); border-color: var(--black); }
-
-    /* ── Busca ── */
-    .search-wrap { flex: 1; min-width: 180px; max-width: 320px; position: relative; }
-    .search-wrap input {
-      width: 100%; padding: 7px 12px 7px 34px;
-      border: 1px solid var(--gray-3); border-radius: 2px; font-size: 13px;
-      font-family: 'Inter', sans-serif; outline: none; color: var(--black);
-      transition: border-color .2s; background: var(--white);
-    }
-    .search-wrap input:focus { border-color: var(--amber); }
-    .search-icon {
-      position: absolute; left: 11px; top: 50%; transform: translateY(-50%);
-      color: var(--gray-2); font-size: 13px; pointer-events: none;
+      justify-content: center;
+      padding: 24px;
     }
 
-    /* ── Tabela de pedidos ── */
-    .table-wrap { background: var(--white); border-radius: 2px; overflow: hidden; }
-    table { width: 100%; border-collapse: collapse; }
-    thead th {
-      padding: 13px 18px; text-align: left;
-      font-size: 11px; font-weight: 600; letter-spacing: .08em;
-      text-transform: uppercase; color: var(--gray-2);
-      border-bottom: 1px solid var(--gray-3); background: var(--white);
+    /* ── Card ── */
+    .card {
+      background: var(--white);
+      width: 100%;
+      max-width: 420px;
+      border-radius: 2px;
+      overflow: hidden;
+      box-shadow: 0 32px 80px rgba(0,0,0,.6);
     }
-    tbody tr { border-bottom: 1px solid #f0ede8; transition: background .1s; cursor: pointer; }
-    tbody tr:last-child { border-bottom: none; }
-    tbody tr:hover { background: #FAFAF8; }
-    tbody td { padding: 15px 18px; font-size: 13px; color: var(--gray-1); vertical-align: middle; }
-    .td-proto { font-weight: 600; font-size: 12px; color: var(--gray-2); letter-spacing: .04em; }
-    .td-cliente { font-weight: 500; color: var(--black); }
-    .td-projeto { color: var(--gray-2); }
 
-    /* ── Badges de status ── */
-    .status-badge {
-      display: inline-block; font-size: 11px; font-weight: 500;
-      padding: 3px 10px; border-radius: 2px; white-space: nowrap;
+    /* Assinatura: faixa âmbar no topo */
+    .card-accent {
+      height: 3px;
+      background: var(--amber);
+      width: 100%;
     }
-    .s-recebida   { background: #EFF0F0; color: var(--gray-2); }
-    .s-marketing  { background: #EAF0FB; color: var(--blue); }
-    .s-compras    { background: #EAF0FB; color: var(--blue); }
-    .s-design     { background: #FFF4E5; color: var(--orange); }
-    .s-producao   { background: #FFF4E5; color: var(--orange); }
-    .s-arte       { background: #FFF0D6; color: var(--orange); }
-    .s-concluido  { background: #EAF5EE; color: var(--green); }
-    .s-cancelado  { background: #FCE8E8; color: var(--red); }
-    .s-default    { background: #F0EDE8; color: var(--gray-2); }
 
-    /* ── Estado vazio ── */
-    .empty {
-      text-align: center; padding: 80px 24px;
-      color: var(--gray-2); font-size: 14px; background: var(--white);
+    .card-body {
+      padding: 48px 44px 52px;
     }
-    .empty-title { font-size: 16px; font-weight: 600; color: var(--gray-1); margin-bottom: 8px; }
 
-    /* ── Loading ── */
-    .loading { text-align: center; padding: 60px; color: var(--gray-2); font-size: 13px; }
+    /* ── Identidade ── */
+    .brand-name {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 26px;
+      font-weight: 600;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--black);
+      line-height: 1;
+    }
+    .brand-sub {
+      font-size: 11px;
+      color: var(--gray-2);
+      letter-spacing: .06em;
+      margin-top: 5px;
+      text-transform: uppercase;
+    }
 
-    /* ── Aviso de ação necessária ── */
-    .needs-action { width: 8px; height: 8px; background: var(--amber); border-radius: 50%; display: inline-block; margin-right: 6px; }
+    .divider {
+      height: 1px;
+      background: var(--gray-3);
+      margin: 32px 0;
+    }
 
-    /* ── Mobile ── */
-    @media (max-width: 700px) {
-      nav { padding: 0 16px; }
-      .page { padding: 24px 16px; }
-      .nav-user { display: none; }
-      table thead { display: none; }
-      table, tbody, tr, td { display: block; }
-      tbody tr { padding: 12px 0; border-bottom: 1px solid var(--gray-3); }
-      tbody td { padding: 4px 16px; border: none; }
-      .td-proto { font-size: 11px; }
+    /* ── Títulos de etapa ── */
+    .step-title {
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--black);
+      margin-bottom: 6px;
+    }
+    .step-sub {
+      font-size: 13px;
+      color: var(--gray-2);
+      line-height: 1.5;
+      margin-bottom: 28px;
+    }
+    .step-sub strong { color: var(--black); font-weight: 500; }
+
+    /* ── Inputs estilo linha (só borda inferior) ── */
+    .field { margin-bottom: 24px; }
+    .field label {
+      display: block;
+      font-size: 11px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--gray-2);
+      margin-bottom: 10px;
+    }
+    .field input {
+      width: 100%;
+      border: none;
+      border-bottom: 1.5px solid var(--gray-3);
+      border-radius: 0;
+      padding: 10px 0;
+      font-size: 16px;
+      font-family: 'Inter', sans-serif;
+      color: var(--black);
+      background: transparent;
+      outline: none;
+      transition: border-color .2s;
+    }
+    .field input:focus { border-bottom-color: var(--amber); }
+    .field input::placeholder { color: var(--gray-3); }
+
+    /* ── OTP: 6 caixas só-linha ── */
+    .otp-boxes {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 32px;
+      justify-content: center;
+    }
+    .otp-box {
+      width: 44px;
+      height: 56px;
+      border: none;
+      border-bottom: 2px solid var(--gray-3);
+      border-radius: 0;
+      text-align: center;
+      font-size: 24px;
+      font-weight: 600;
+      font-family: 'Inter', sans-serif;
+      color: var(--black);
+      background: transparent;
+      outline: none;
+      transition: border-color .2s;
+      caret-color: var(--amber);
+    }
+    .otp-box:focus { border-bottom-color: var(--amber); }
+
+    /* ── Botão principal ── */
+    .btn-primary {
+      width: 100%;
+      padding: 16px;
+      background: var(--black);
+      color: var(--white);
+      border: none;
+      border-radius: 2px;
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background .2s, opacity .2s;
+      position: relative;
+    }
+    .btn-primary:hover { background: #2a2a2a; }
+    .btn-primary:disabled { opacity: .5; cursor: not-allowed; }
+
+    /* spinner inline */
+    .spinner {
+      display: none;
+      width: 16px; height: 16px;
+      border: 2px solid rgba(255,255,255,.3);
+      border-top-color: #fff;
+      border-radius: 50%;
+      animation: spin .7s linear infinite;
+      margin: 0 auto;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ── Link secundário ── */
+    .link-sec {
+      display: block;
+      text-align: center;
+      margin-top: 20px;
+      font-size: 12px;
+      color: var(--gray-2);
+      text-decoration: none;
+      cursor: pointer;
+      transition: color .2s;
+    }
+    .link-sec:hover { color: var(--black); }
+
+    /* ── Erro ── */
+    .error-msg {
+      font-size: 12px;
+      color: var(--err);
+      margin-top: 12px;
+      min-height: 16px;
+      text-align: center;
+    }
+
+    /* ── Etapas ── */
+    .step { display: none; }
+    .step.active { display: block; }
+
+    /* ── Rodapé externo ── */
+    .page-footer {
+      margin-top: 32px;
+      font-size: 11px;
+      color: #444;
+      letter-spacing: .05em;
     }
   </style>
 </head>
 <body>
 
-<!-- Navbar -->
-<nav>
-  <div class="nav-brand">
-    <div class="nav-accent"></div>
-    <span class="nav-name">Capacete AW</span>
-  </div>
-  <div class="nav-right">
-    <span class="badge-perfil" id="navPerfil">—</span>
-    <span class="nav-user" id="navNome">—</span>
-    <button class="btn-logout" onclick="logout()">Sair</button>
-  </div>
-</nav>
+  <div class="card">
+    <div class="card-accent"></div>
+    <div class="card-body">
 
-<!-- Conteúdo -->
-<div class="page">
+      <!-- Identidade -->
+      <div class="brand-name">Capacete AW</div>
+      <div class="brand-sub">Athié Wohnrath</div>
 
-  <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:16px; margin-bottom:28px;">
-    <div class="page-header" style="margin:0;">
-      <div class="page-title">Pedidos de Capacetes</div>
-      <div class="page-desc" id="pageDesc">Carregando…</div>
-    </div>
-    <a href="/" class="btn-new">+ Nova solicitação</a>
-  </div>
+      <div class="divider"></div>
 
-  <!-- Resumo -->
-  <div class="summary">
-    <div class="summary-card amber">
-      <div class="summary-num" id="totalAbertos">—</div>
-      <div class="summary-label">Em andamento</div>
-    </div>
-    <div class="summary-card blue">
-      <div class="summary-num" id="totalArte">—</div>
-      <div class="summary-label">Aguardando aprovação de arte</div>
-    </div>
-    <div class="summary-card green">
-      <div class="summary-num" id="totalConcluidos">—</div>
-      <div class="summary-label">Concluídos</div>
-    </div>
-    <div class="summary-card gray">
-      <div class="summary-num" id="totalTodos">—</div>
-      <div class="summary-label">Total registrado</div>
-    </div>
-  </div>
+      <!-- Etapa 1: e-mail -->
+      <div class="step active" id="step1">
+        <div class="step-title">Acesse sua conta</div>
+        <div class="step-sub">Enviaremos um código de verificação para o seu e-mail corporativo.</div>
 
-  <!-- Filtros + Busca -->
-  <div class="filters">
-    <div class="search-wrap">
-      <span class="search-icon">🔍</span>
-      <input type="text" id="busca" placeholder="Protocolo ou cliente…" oninput="renderTabela()">
+        <div class="field">
+          <label for="emailInput">E-mail</label>
+          <input type="email" id="emailInput" placeholder="voce@athiewohnrath.com.br" autocomplete="email">
+        </div>
+
+        <button class="btn-primary" id="btnEnviar" onclick="enviarCodigo()">
+          <span id="btnEnviarText">Enviar código</span>
+          <div class="spinner" id="spinEnviar"></div>
+        </button>
+        <div class="error-msg" id="err1"></div>
+      </div>
+
+      <!-- Etapa 2: OTP -->
+      <div class="step" id="step2">
+        <div class="step-title">Verifique seu e-mail</div>
+        <div class="step-sub" id="sub2">Código enviado para <strong id="emailLabel"></strong>. Válido por 10 minutos.</div>
+
+        <div class="otp-boxes">
+          <input class="otp-box" type="text" inputmode="numeric" maxlength="1" id="d0">
+          <input class="otp-box" type="text" inputmode="numeric" maxlength="1" id="d1">
+          <input class="otp-box" type="text" inputmode="numeric" maxlength="1" id="d2">
+          <input class="otp-box" type="text" inputmode="numeric" maxlength="1" id="d3">
+          <input class="otp-box" type="text" inputmode="numeric" maxlength="1" id="d4">
+          <input class="otp-box" type="text" inputmode="numeric" maxlength="1" id="d5">
+        </div>
+
+        <button class="btn-primary" id="btnEntrar" onclick="verificarCodigo()">
+          <span id="btnEntrarText">Entrar</span>
+          <div class="spinner" id="spinEntrar"></div>
+        </button>
+
+        <a class="link-sec" id="linkReenviar" onclick="reenviar()">Reenviar código</a>
+        <div class="error-msg" id="err2"></div>
+      </div>
+
     </div>
-    <button class="filter-chip active" data-status="" onclick="setFiltro(this)">Todos</button>
-    <button class="filter-chip" data-status="Aguardando Aprovação Marketing" onclick="setFiltro(this)">Aprovação Marketing</button>
-    <button class="filter-chip" data-status="Arte Disponível para Aprovação" onclick="setFiltro(this)">Aprovar Arte</button>
-    <button class="filter-chip" data-status="Em Produção" onclick="setFiltro(this)">Em Produção</button>
-    <button class="filter-chip" data-status="Concluído" onclick="setFiltro(this)">Concluídos</button>
   </div>
 
-  <!-- Tabela -->
-  <div class="table-wrap" id="tableWrap">
-    <div class="loading">Carregando pedidos…</div>
-  </div>
-
-</div>
+  <div class="page-footer">© Athié Wohnrath &nbsp;·&nbsp; Uso interno</div>
 
 <script>
-  // ── Auth check ──
-  const token  = localStorage.getItem('aw_token');
-  const perfil = localStorage.getItem('aw_perfil');
-  const nome   = localStorage.getItem('aw_nome');
-  const email  = localStorage.getItem('aw_email');
-
-  if (!token) { window.location.href = '/login'; }
-
-  document.getElementById('navPerfil').textContent = perfil || '—';
-  document.getElementById('navNome').textContent   = nome   || '—';
-
-  function logout() {
-    ['aw_token','aw_perfil','aw_nome','aw_email','aw_email_login'].forEach(k => localStorage.removeItem(k));
-    window.location.href = '/login';
+  // ── Navegação de etapas ──
+  function showStep(n) {
+    document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+    document.getElementById('step' + n).classList.add('active');
   }
 
-  // ── Estado ──
-  let todosPedidos = [];
-  let filtroStatus = '';
-
-  function setFiltro(btn) {
-    document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
-    btn.classList.add('active');
-    filtroStatus = btn.dataset.status;
-    renderTabela();
+  function setLoading(btn, spin, text, on) {
+    document.getElementById(btn).disabled = on;
+    document.getElementById(spin).style.display = on ? 'block' : 'none';
+    document.getElementById(text).style.display = on ? 'none' : 'inline';
   }
 
-  // ── Classe de badge ──
-  function badgeClass(status) {
-    if (!status) return 's-default';
-    const s = status.toLowerCase();
-    if (s.includes('recebid')) return 's-recebida';
-    if (s.includes('marketing')) return 's-marketing';
-    if (s.includes('compras')) return 's-compras';
-    if (s.includes('design') || s.includes('desenvolvimento') || s.includes('atribuí') || s.includes('liberacao') || s.includes('liberação') || s.includes('transporte') || s.includes('retirada')) return 's-producao';
-    if (s.includes('arte')) return 's-arte';
-    if (s.includes('produção') || s.includes('producao')) return 's-producao';
-    if (s.includes('concluíd') || s.includes('concluido')) return 's-concluido';
-    if (s.includes('cancelad')) return 's-cancelado';
-    return 's-default';
-  }
+  function setErr(id, msg) { document.getElementById(id).textContent = msg; }
 
-  // Statuses que precisam de ação do perfil atual
-  const NEEDS_ACTION = {
-    'Marketing':    ['Aguardando Aprovação Marketing'],
-    'Compras':      ['Aguardando Aprovação Compras'],
-    'Fornecedor':   ['Fornecedor Atribuído','Arte Aprovada','Aguardando Liberação Produção'],
-    'Solicitante':  ['Arte Disponível para Aprovação'],
-  };
+  // ── Etapa 1: enviar código ──
+  async function enviarCodigo() {
+    const email = document.getElementById('emailInput').value.trim();
+    if (!email) { setErr('err1', 'Informe o e-mail.'); return; }
+    setErr('err1', '');
+    setLoading('btnEnviar', 'spinEnviar', 'btnEnviarText', true);
 
-  function precisaAcao(status) {
-    return (NEEDS_ACTION[perfil] || []).includes(status);
-  }
-
-  // ── Filtrar pedidos por perfil ──
-  function filtrarPorPerfil(lista) {
-    if (perfil === 'Solicitante') return lista.filter(s => s.email === email);
-    if (perfil === 'Fornecedor')  return lista.filter(s => s.fornecedor_id);
-    return lista; // Marketing e Compras veem tudo
-  }
-
-  // ── Render ──
-  function renderTabela() {
-    const busca = document.getElementById('busca').value.trim().toLowerCase();
-    let lista = filtrarPorPerfil(todosPedidos)
-      .filter(s => !filtroStatus || s.status === filtroStatus)
-      .filter(s => !busca || s.protocolo.toLowerCase().includes(busca) || (s.cliente||'').toLowerCase().includes(busca) || (s.projeto||'').toLowerCase().includes(busca));
-
-    // Atualizar desc
-    document.getElementById('pageDesc').textContent =
-      `${lista.length} pedido${lista.length !== 1 ? 's' : ''} ${filtroStatus ? `· ${filtroStatus}` : ''}`;
-
-    if (!lista.length) {
-      document.getElementById('tableWrap').innerHTML = `
-        <div class="empty">
-          <div class="empty-title">Nenhum pedido encontrado</div>
-          Ajuste os filtros ou crie uma nova solicitação.
-        </div>`;
-      return;
-    }
-
-    // Ordenar: os que precisam de ação do usuário primeiro
-    lista.sort((a, b) => precisaAcao(b.status) - precisaAcao(a.status));
-
-    document.getElementById('tableWrap').innerHTML = `
-      <table>
-        <thead>
-          <tr>
-            <th>Protocolo</th>
-            <th>Cliente / Projeto</th>
-            <th>Qtd.</th>
-            <th>Local</th>
-            <th>Status</th>
-            <th>Data</th>
-          </tr>
-        </thead>
-        <tbody>
-          ${lista.map(s => `
-            <tr onclick="window.location='/solicitacoes/${s.protocolo}'">
-              <td class="td-proto">${s.protocolo}</td>
-              <td>
-                <div class="td-cliente">
-                  ${precisaAcao(s.status) ? '<span class="needs-action" title="Aguarda sua ação"></span>' : ''}
-                  ${s.cliente || '—'}
-                </div>
-                <div class="td-projeto">${s.projeto || ''}</div>
-              </td>
-              <td>${s.quantidade || '—'}</td>
-              <td style="white-space:nowrap">${s.cidade || ''}${s.estado ? ', '+s.estado : ''}</td>
-              <td><span class="status-badge ${badgeClass(s.status)}">${s.status}</span></td>
-              <td style="white-space:nowrap;color:var(--gray-2)">${s.data_abertura ? s.data_abertura.slice(0,10) : '—'}</td>
-            </tr>`).join('')}
-        </tbody>
-      </table>`;
-  }
-
-  // ── Carregar dados ──
-  async function carregar() {
     try {
-      const r = await fetch('/solicitacoes/lista', {
-        headers: { 'Authorization': 'Bearer ' + token }
-      });
-      if (r.status === 401) { logout(); return; }
+      const fd = new FormData();
+      fd.append('email', email);
+      const r = await fetch('/auth/solicitar_otp', { method: 'POST', body: fd });
       const data = await r.json();
-      todosPedidos = data.solicitacoes || [];
+      if (!r.ok) { setErr('err1', data.detail || 'Erro ao enviar código.'); return; }
 
-      // Resumo
-      const visiveis = filtrarPorPerfil(todosPedidos);
-      const abertos   = visiveis.filter(s => !['Concluído','Cancelado'].includes(s.status)).length;
-      const arte      = visiveis.filter(s => s.status === 'Arte Disponível para Aprovação').length;
-      const concluidos= visiveis.filter(s => s.status === 'Concluído').length;
-      document.getElementById('totalAbertos').textContent   = abertos;
-      document.getElementById('totalArte').textContent      = arte;
-      document.getElementById('totalConcluidos').textContent= concluidos;
-      document.getElementById('totalTodos').textContent     = visiveis.length;
-
-      renderTabela();
-    } catch (e) {
-      document.getElementById('tableWrap').innerHTML =
-        '<div class="empty"><div class="empty-title">Erro ao carregar pedidos</div>Verifique sua conexão e recarregue a página.</div>';
-    }
+      document.getElementById('emailLabel').textContent = email;
+      localStorage.setItem('aw_email_login', email);
+      showStep(2);
+      setTimeout(() => document.getElementById('d0').focus(), 50);
+    } catch { setErr('err1', 'Erro de conexão. Tente novamente.'); }
+    finally { setLoading('btnEnviar', 'spinEnviar', 'btnEnviarText', false); }
   }
 
-  carregar();
+  // ── Etapa 2: verificar OTP ──
+  async function verificarCodigo() {
+    const otp = [0,1,2,3,4,5].map(i => document.getElementById('d'+i).value).join('');
+    if (otp.length < 6) { setErr('err2', 'Digite os 6 dígitos do código.'); return; }
+    setErr('err2', '');
+    setLoading('btnEntrar', 'spinEntrar', 'btnEntrarText', true);
+
+    try {
+      const email = localStorage.getItem('aw_email_login') || '';
+      const fd = new FormData();
+      fd.append('email', email);
+      fd.append('otp', otp);
+      const r = await fetch('/auth/verificar_otp', { method: 'POST', body: fd });
+      const data = await r.json();
+      if (!r.ok) {
+        setErr('err2', data.detail || 'Código inválido.');
+        document.querySelectorAll('.otp-box').forEach(b => b.value = '');
+        document.getElementById('d0').focus();
+        return;
+      }
+      localStorage.setItem('aw_token', data.token);
+      localStorage.setItem('aw_perfil', data.perfil);
+      localStorage.setItem('aw_nome',   data.nome);
+      localStorage.setItem('aw_email',  data.email);
+      window.location.href = '/dashboard';
+    } catch { setErr('err2', 'Erro de conexão. Tente novamente.'); }
+    finally { setLoading('btnEntrar', 'spinEntrar', 'btnEntrarText', false); }
+  }
+
+  // ── Reenviar ──
+  async function reenviar() {
+    const email = localStorage.getItem('aw_email_login') || '';
+    if (!email) { showStep(1); return; }
+    document.getElementById('linkReenviar').textContent = 'Enviando…';
+    const fd = new FormData(); fd.append('email', email);
+    try { await fetch('/auth/solicitar_otp', { method: 'POST', body: fd }); } catch {}
+    document.getElementById('linkReenviar').textContent = 'Código reenviado ✓';
+    document.querySelectorAll('.otp-box').forEach(b => b.value = '');
+    document.getElementById('d0').focus();
+    setTimeout(() => { document.getElementById('linkReenviar').textContent = 'Reenviar código'; }, 3000);
+  }
+
+  // ── Navegação entre as caixas do OTP ──
+  document.querySelectorAll('.otp-box').forEach((box, i, all) => {
+    box.addEventListener('input', e => {
+      const val = e.target.value.replace(/\D/g, '');
+      e.target.value = val.slice(-1);
+      if (val && i < 5) all[i + 1].focus();
+      if ([...all].every(b => b.value)) verificarCodigo();
+    });
+    box.addEventListener('keydown', e => {
+      if (e.key === 'Backspace' && !box.value && i > 0) all[i - 1].focus();
+    });
+  });
+
+  // ── Paste no primeiro box ──
+  document.getElementById('d0').addEventListener('paste', e => {
+    e.preventDefault();
+    const digits = (e.clipboardData.getData('text').replace(/\D/g,'')).slice(0,6);
+    digits.split('').forEach((d, i) => {
+      const box = document.getElementById('d'+i);
+      if (box) box.value = d;
+    });
+    const last = document.getElementById('d' + Math.min(digits.length, 5));
+    if (last) last.focus();
+    if (digits.length === 6) verificarCodigo();
+  });
+
+  // Enter no campo de e-mail
+  document.getElementById('emailInput').addEventListener('keydown', e => {
+    if (e.key === 'Enter') enviarCodigo();
+  });
+
+  // Se já tem token, vai direto pro dashboard
+  if (localStorage.getItem('aw_token')) window.location.href = '/dashboard';
 </script>
 </body>
 </html>
