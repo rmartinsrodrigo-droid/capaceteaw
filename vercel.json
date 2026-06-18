@@ -1,7 +1,17 @@
 {
-  "functions": {
-    "main.py": {
-      "includeFiles": "templates/**,*.html"
+  "builds": [
+    {
+      "src": "main.py",
+      "use": "@vercel/python",
+      "config": {
+        "includeFiles": ["*.html"]
+      }
     }
-  }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "main.py"
+    }
+  ]
 }
